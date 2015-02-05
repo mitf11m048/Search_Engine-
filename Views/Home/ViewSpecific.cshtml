@@ -1,0 +1,75 @@
+﻿@model List<AirlineReservation.Models.flightSchedule>
+
+@{
+    ViewBag.Title = "ViewSpecific";
+    Layout = "~/Views/Shared/_FlightscheduleLayout.cshtml";
+}
+
+<h2>ViewSpecific</h2>
+
+<section id="content">
+
+    <article class="col1 pad_left1">
+
+
+        <form action="\home\ViewSpecific" method="post">
+            Search Here For Flight<input type="text" name="specific" placeholder="Flight Id" />
+            <input class="button2" type="submit" />
+        </form>
+        <pre>
+
+
+ Select Here For Flight By Area Codes
+            <select id="areaOptions">
+                @foreach (var x in Model)
+                    {
+                        <option>@x.areacode</option>
+                    }
+                
+
+            </select>
+            
+
+        </pre>
+    </article>
+    <article id="loaddata" class="col2 pad_left1">
+        <div id="scheduleform">
+            <table>
+                <tr>
+                    <td><pre>     </pre></td>
+                    <td><pre>     </pre></td>
+                    <td>FlightID</td>
+                    <td>Flight Code</td>
+                    <td>Area Code</td>
+                    <td>Departure Time</td>
+                    <td>Arrival Time</td>
+                    <td>Destination</td>
+                </tr>
+
+
+                
+                     
+                    <tr>
+                        <td><a href="/home/EditSchedule/@ViewBag.searchedContent.Id"  class="button3">Edit</a></td>
+                        <td><a href="/home/DeleteSchedule/@ViewBag.searchedContent.Id" class="button3">Delete</a></td>
+                        <td>@ViewBag.searchedContent.Id</td>
+                        <td>@ViewBag.searchedContent.flightcode</td>
+                        <td>@ViewBag.searchedContent.areacode</td>
+                        <td>@ViewBag.searchedContent.departueTime</td>
+                        <td>@ViewBag.searchedContent.arrivalTime</td>
+                        <td>@ViewBag.searchedContent.destination</td>
+                    </tr>
+
+            </table>
+        </div>
+    </article>
+</section>
+
+
+
+                    
+                        
+                        
+                       
+                      
+                      

@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title></title>
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" href="~/Content/css/reset.css" type="text/css" media="all">
+    <link rel="stylesheet" href="~/Content/css/layout.css" type="text/css" media="all">
+    <link rel="stylesheet" href="~/Content/css/style.css" type="text/css" media="all">
+    <script type="text/javascript" src="~/Scripts/js/jquery-1.4.2.js"></script>
+    <script type="text/javascript" src="~/Scripts/js/cufon-yui.js"></script>
+
+    <script type="text/javascript" src="~/Scripts/js/cufon-replace.js"></script>
+    <script type="text/javascript" src="~/Scripts/js/Myriad_Pro_italic_600.font.js"></script>
+    <script type="text/javascript" src="~/Scripts/js/Myriad_Pro_italic_400.font.js"></script>
+    <script type="text/javascript" src="~/Scripts/js/Myriad_Pro_400.font.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery-1.10.2.js"></script>
+    <script>
+
+        $(document).ready(
+            function () {
+                $("#showFlightSchedules").click(
+                function loadSchedules() {
+                    setInterval(
+                        function () {
+                            $.getJSON("/home/ViewScheduleByJson", function (data) {
+                                $("#myData").remove();
+                                $("#scheduleform").remove();
+                                $("#loaddata").append("<div id='scheduleform'><table id='itemTable'><tr><td>FlightID</td><td>Flight Code</td><td>Area Code</td><td>Departure Time</td><td>Arrival Time</td><td>Destination</td></tr>");
+                                $.each(data,
+                                    function (i, item) {
+                                        $("#itemTable").append("<tr> <td>" + item.Id + "</td><td style='color: brown'>" + item.flightcode + "</td><td>" + item.areacode + "</td> <td>" + item.departueTime + "</td><td >" + item.arrivalTime + "</td><td style=' font-size: larger'>" + item.destination + "</td></tr>");
+
+                                    });
+                                $("itemTable").append("</table></div>");
+                            }, 2000);
+                        });
+                });
+                $("#index1").click(function () {
+
+                    $("#loaddata").load("/home/index_1 #index1Data");
+                });
+                $("#index2").click(function () {
+
+                    $("#loaddata").slideDown(1000).load("/home/index_2 #index1Data");
+                });
+                $("#index3").click(function () {
+                    $("#loaddata").load("/home/index_3 #index1Data");
+                });
+
+
+                $(document).ready(function () {
+                    $("#loading").hide();
+                    $("#nameId").blur(function () {
+
+                        var s = document.getElementById("nameId").value;
+                        document.getElementById("error").innerHTML = "Checking"
+                        $("#loading").show();
+
+                        $.getJSON("/home/GetAdmins/?n=" + s, function (d) {
+
+                            if (d) {
+                                $("#loading").hide();
+                                document.getElementById("error").innerHTML = s + " is a valid";
+                            }
+                            else {
+                                if (d == "") {
+                                    $("#loading").hide();
+                                    document.getElementById("error").innerHTML = s + " is not valid admin";
+                                }
+                            }
+                        });
+
+                    });
+                });
+            });
+
+
+
+         
+
+    </script>
+
+</head>
+<body id="page1" >
+
+    <div class="body1">
+        <div class="main">
+            <script src="~/Scripts/jquery-1.10.2.js"></script>
+            <!-- header -->
+
+            <header>
+
+                <div class="wrapper">
+
+                    <h1><a href="/home/index" id="logo">Air Lines</a><span id="slogan">International Travel @ViewBag.user</span></h1>
+                    <div class="right">
+                        <nav>
+                            <ul id="top_nav">
+                                <li>
+                                    <button>
+                                        <img src="~/Content/images/img1.gif" alt=""></button></li>
+                                <li>
+                                    <button>
+                                        <img src="~/Content/images/img2.gif" alt=""></button></li>
+                                <li class="bg_none">
+                                    <button>
+                                        <img src="~/Content/images/img3.gif" alt=""></button></li>
+                            </ul>
+                        </nav>
+                        <nav>
+                            <ul id="menu">
+                                <li id="menu_active"><a href="/home/index">Home</a></li>
+                                <li><a id="showFlightSchedules">Show Flight Schedule</a></li>
+                                <li><a id="index1">Our Aircraft</a></li>
+                                <li><a id="index2">Safety</a></li>
+                                <li><a id="index3">Charters</a></li>
+                                <li><a id="adminPannel" href="/home/adminPannel">Admin</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </header>
+        </div>
+        <div class="main">
+            <div id="banner">
+                <div class="text1">
+                    COMFORT<span>Guaranteed</span><p></p>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="main">
+
+            @RenderBody();
+                
+        </div>
+        <div class="body2">
+        </div>
+        <script type="text/javascript"> Cufon.now(); </script>
+    </div>
+</body>
+</html>

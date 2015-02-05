@@ -1,0 +1,48 @@
+﻿@model AirlineReservation.Models.flightSchedule
+
+@{
+    ViewBag.Title = "ConfirmSchedule";
+    Layout = "~/Views/Shared/_FlightscheduleLayout.cshtml";
+}
+
+<h2>ConfirmSchedule</h2>
+
+<section id="content">
+    <article class="col1">
+        <div class="pad_1">
+            These Details are inserted in database
+        </div>
+    </article>
+    <article id="loaddata" class="col2 pad_left1">
+        <article class="cols">
+            <table id="myTable">
+
+                <tr>
+                    <td>Flight Code
+                    <input type="text" readonly="true" value="@Model.flightcode"/></td>
+                </tr>
+                <tr>
+                    <td>Area Code
+                    <input type="text" readonly="true" value="@Model.areacode"/></td>
+                </tr>
+                <tr>
+                    <td>Departure Time<input type="text" readonly="true" value="@Model.departueTime"/></td>
+                </tr>
+                <tr>
+                    <td>Arrival Time
+                        <input type="text" readonly="true" value="@Model.arrivalTime" /></td>
+                </tr>
+                <tr>
+                    <td>Destination<input type="text" readonly="true" value="@Model.destination" /></td>
+                </tr>
+                <tr>
+                    <td>
+                        <ul id="menu">
+                            <li><a href="/Home/AdminMain">Confirm</a></li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+        </article>
+    </article>
+</section>

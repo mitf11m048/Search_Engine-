@@ -1,0 +1,60 @@
+﻿@{
+    ViewBag.Title = "ManageFlightSchedule";
+    Layout = "~/Views/Shared/_FlightscheduleLayout.cshtml";
+}
+
+<section id="content">
+
+    <article class="col1">
+<pre id="mainLink" >Fill the form to build a schedule @ViewBag.username</pre>        
+<a>@ViewBag.usename<a/>        
+
+
+    </article>
+    <article  id="loaddata" class="col2 pad_left1">
+        <div id="scheduleform">
+
+            <h2>@ViewBag.error</h2>
+            <form id="ContactForm" name="form1" method="post" action="/home/addfilghtschedule" onsubmit="return validate()">
+                <table  border="0">
+                    <th colspan="2">Add Schedule</th>
+                    <tr>@ViewBag.username</tr>
+                    <tr>
+                        <td nowrap scope="row">Flight Code </td>
+                        <td>
+                            <input name="flightcode" type="text" id="flightcode" onblur="validateTno()"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Area Code</th>
+                        <td>
+                            <input name="areacode" type="text" id="areacode" onblur="validateSeat()"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Departure Time</th>
+                        <td>
+                            <input name="departureTime" type="text" id="departureTime" onblur="validateDest()"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Arrival Time </th>
+                        <td>
+                            <input name="arrivalTime" type="text" id="arrivalTime" onblur="validatePayment()"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Destination </th>
+                        <td>
+                            <input name="destination" type="text" id="destination" onblur="validateStatus()"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">&nbsp;</th>
+                        <td>
+                            <input type="submit" name="Submit" value="Submit"></td>
+                    </tr>
+                </table>
+                <div style="position: absolute; left: -227px; top: -1px; width: 207px;">
+                    <p id="error">PLEASE INPUT CORECTLY</p>
+                </div>
+            </form>
+        </div>
+    </article>
+</section>
+

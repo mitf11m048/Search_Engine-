@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<title></title>
+<meta charset="utf-8">
+    
+<link rel="stylesheet" href="~/Content/css/reset.css" type="text/css" media="all">
+<link rel="stylesheet" href="~/Content/css/layout.css" type="text/css" media="all">
+<link rel="stylesheet" href="~/Content/css/style.css" type="text/css" media="all">
+<script type="text/javascript" src="~/Scripts/js/jquery-1.4.2.js" ></script>
+<script type="text/javascript" src="~/Scripts/js/cufon-yui.js"></script>
+   
+<script type="text/javascript" src="~/Scripts/js/cufon-replace.js"></script> 
+<script type="text/javascript" src="~/Scripts/js/Myriad_Pro_italic_600.font.js"></script>
+<script type="text/javascript" src="~/Scripts/js/Myriad_Pro_italic_400.font.js"></script>
+<script type="text/javascript" src="~/Scripts/js/Myriad_Pro_400.font.js"></script>
+  <style>
+      #myTable input {
+      color:red;
+      }
+  </style>
+    <script>
+
+
+      $(document).ready(
+          function () {
+              
+              $("#flightcodeOptions").change(function () {
+                  var flightCode = $("#flightcodeOptions").val();
+                  $("#scheduleform").remove();
+                  $("#loaddata").append("<div id='scheduleform'><img src='/Content/images/brspin.gif' /></div>");
+                  $.getJSON("/home/SearchByFlightCode/?flightCode=" + flightCode, function (data) {
+                      $("#scheduleform").remove();
+                      $("#loaddata").append("<div id='scheduleform'><table id='dataTable'>");
+                      $("#dataTable").append("<tr><td><pre></pre></td><td><br><br>       <pre>     </pre></td><td>FlightID</td><td>Flight Code</td><td>Area Code</td><td>Departure Time</td><td>Arrival Time</td><td>Destination</td></tr>");
+                      $.each(data, function (i, item) {
+                          $("#dataTable").append("<tr><td><a href='/home/EditSchedule/" + item.Id + "' class='button3'>Edit</a></td><td><a href='/home/DeleteSchedule/" + item.Id + "' class='button3'>Delete</a></td> <td>" + item.Id + "</td><td>" + item.flightcode + "</td><td>" + item.areacode + "</td> <td>" + item.departueTime + "</td><td>" + item.arrivalTime + "</td><td style='font-size: larger'>" + item.destination + "</td></tr>");
+
+                      });
+                      $("#dataTable").append("</table>");
+                      $("#scheduleform").append("</div>");
+                  });
+              });
+            
+              $("#areaOptions").change(function () {
+                  var areaCode = $("#areaOptions").val();
+                  $("#scheduleform").remove();
+                  $("#loaddata").append("<div id='scheduleform'><img src='/Content/images/brspin.gif' /></div>");
+
+                  $.getJSON("/home/SearchByAreaCode/?areaCode=" + areaCode, function (data) {
+                      $("#scheduleform").remove();
+                      $("#loaddata").append("<div id='scheduleform'><table id='dataTable'>");
+                      $("#dataTable").append("<tr><td><pre></pre></td><td><br><br>       <pre>     </pre></td><td>FlightID</td><td>Flight Code</td><td>Area Code</td><td>Departure Time</td><td>Arrival Time</td><td>Destination</td></tr>");
+                      $.each(data, function (i, item) {
+                          $("#dataTable").append("<tr><td><a href='/home/EditSchedule/" + item.Id + "' class='button3'>Edit</a></td><td><a href='/home/DeleteSchedule/" + item.Id + "' class='button3'>Delete</a></td> <td>" + item.Id + "</td><td>" + item.flightcode + "</td><td>" + item.areacode + "</td> <td>" + item.departueTime + "</td><td>" + item.arrivalTime + "</td><td style='font-size: larger'>" + item.destination + "</td></tr>");
+                      
+                      });
+                      $("#dataTable").append("</table>");
+                      $("#scheduleform").append("</div>");
+                  });
+              });
+              $("#flight").click(function () {
+
+                  $("#content").load("/home/ManageFlightSchedule #content");
+              });
+              $("#Viewer").click(function () {
+                
+                  $("#content").load("/home/ViewSchedules #content");
+              });
+          });
+    </script>
+
+</head>
+<body id="page1">
+<div class="body1">
+	<div class="main">
+        <script src="~/Scripts/jquery-1.10.2.js"></script>
+<!-- header -->
+      
+		<header>
+			
+            <div class="wrapper">
+               
+				<h1><a id="logo2"> Wellcome </a><span id="slogan">@Session["name"]</span></h1>
+				<div class="rightAlign ">
+					<nav>
+						<ul id="top_nav">
+							<li><button ><img src="~/Content/images/img1.gif" alt=""></button></li>
+							<li><button ><img src="~/Content/images/img2.gif" alt=""></button></li>
+							<li class="bg_none"><button ><img src="~/Content/images/img3.gif" alt=""></button></li>
+						</ul>
+					</nav>
+					<nav>
+						<ul id="menu">
+							<li id="menu_active"><a href="/home/adminmain/?usern=@ViewBag.username">Home</a></li>
+							<li><a id ="flight" >FlightSchedule</a></li>
+							<li ><a href="/home/ViewSchedules" id ="Viewer" >View Schedule</a></li>
+							<!--<li><a id ="AirlineManager" >Airline Manager</a></li>-->
+							<li><a id ="adminPannel" href="/home/Logout ">Logout</a></li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</header>
+	</div>
+    <div class="main">
+	<div id="banner">
+
+	</div>
+</div>
+
+
+<div class="main">
+	
+@RenderBody();
+                
+</div>
+<div class="body2">
+</div>
+<script type="text/javascript"> Cufon.now(); </script>
+</div>
+</body>
+</html>

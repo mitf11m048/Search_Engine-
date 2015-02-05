@@ -1,0 +1,78 @@
+﻿@model List<AirlineReservation.Models.flightSchedule>
+@{
+    ViewBag.Title = "ViewSchedules";
+    Layout = "~/Views/Shared/_FlightscheduleLayout.cshtml";
+}
+
+<h2>ViewSchedules</h2>
+
+<section id="content">
+
+    <article class="col1 pad_left1">
+
+
+        <form action="\home\ViewSpecific" method="post">
+            Search Here For Flight<input type="text" name="specific" placeholder="Flight Id" />
+            <input class="button2" type="submit" />
+        </form>
+
+
+
+        <pre>
+
+
+
+    Select Here For Flight By Area Codes
+    <select id="areaOptions">
+    @foreach (var x in Model)
+    {
+    <option>@x.areacode</option>
+    }
+     </select>
+     Select Here For Flight By Flight Code
+    <select id="flightcodeOptions">
+    @foreach (var x in Model)
+    {
+    <option>@x.flightcode</option>
+    }
+      </select>
+
+
+        </pre>
+    </article>
+    <article id="loaddata" class="col2 pad_left1">
+        <div id="scheduleform">
+            <table >
+                <tr>
+                    <td>
+                        <pre>     </pre>
+                    </td>
+                    <td>
+                        <pre>     </pre>
+                    </td>
+                    <td>FlightID</td>
+                    <td>Flight Code</td>
+                    <td>Area Code</td>
+                    <td>Departure Time</td>
+                    <td>Arrival Time</td>
+                    <td>Destination</td>
+                </tr>
+
+                @foreach (var x in Model)
+                {
+                    <tr>
+                        <td><a href="/home/EditSchedule/@x.Id" class="button3">Edit</a></td>
+                        <td><a href="/home/DeleteSchedule/@x.Id" class="button3">Delete</a></td>
+                        <td>@x.Id</td>
+                        <td >@x.flightcode</td>
+                        <td>@x.areacode</td>
+                        <td>@x.departueTime</td>
+                        <td >@x.arrivalTime</td>
+                        <td  font-size: larger">@x.destination</td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </article>
+</section>
+
